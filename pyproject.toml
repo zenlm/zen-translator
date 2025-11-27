@@ -1,0 +1,128 @@
+[project]
+name = "zen-translator"
+version = "0.1.0"
+description = "Real-time multimodal translation with lip sync and voice cloning"
+readme = "README.md"
+license = {text = "Apache-2.0"}
+authors = [
+    {name = "Hanzo AI", email = "ai@hanzo.ai"},
+    {name = "Zen LM", email = "team@zenlm.org"}
+]
+requires-python = ">=3.10"
+keywords = ["translation", "lip-sync", "voice-cloning", "multimodal", "real-time", "streaming"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: Apache Software License",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Topic :: Multimedia :: Sound/Audio :: Speech",
+    "Topic :: Multimedia :: Video",
+]
+
+dependencies = [
+    # Core ML
+    "torch>=2.1.0",
+    "transformers>=4.45.0",
+    "accelerate>=0.25.0",
+    "safetensors>=0.4.0",
+    
+    # Audio processing
+    "librosa>=0.10.0",
+    "soundfile>=0.12.0",
+    "sounddevice>=0.4.6",
+    "pyaudio>=0.2.14",
+    "webrtcvad>=2.0.10",
+    
+    # Video processing
+    "opencv-python>=4.8.0",
+    "ffmpeg-python>=0.2.0",
+    "av>=11.0.0",
+    
+    # Streaming
+    "fastapi>=0.109.0",
+    "uvicorn[standard]>=0.27.0",
+    "websockets>=12.0",
+    "python-multipart>=0.0.6",
+    "httpx>=0.26.0",
+    
+    # Data processing
+    "numpy>=1.24.0",
+    "scipy>=1.11.0",
+    "pandas>=2.0.0",
+    "datasets>=2.16.0",
+    "huggingface-hub>=0.20.0",
+    
+    # Utils
+    "pydantic>=2.5.0",
+    "pydantic-settings>=2.1.0",
+    "rich>=13.7.0",
+    "typer>=0.9.0",
+    "tqdm>=4.66.0",
+]
+
+[project.optional-dependencies]
+training = [
+    "ms-swift>=2.4.0",
+    "peft>=0.7.0",
+    "bitsandbytes>=0.42.0",
+    "wandb>=0.16.0",
+    "deepspeed>=0.13.0",
+]
+wav2lip = [
+    "face-alignment>=1.3.5",
+    "facexlib>=0.3.0",
+    "basicsr>=1.4.2",
+]
+cosyvoice = [
+    "onnxruntime-gpu>=1.16.0",
+    "WeTextProcessing>=1.0.0",
+    "modelscope>=1.12.0",
+]
+dev = [
+    "pytest>=7.4.0",
+    "pytest-asyncio>=0.23.0",
+    "pytest-cov>=4.1.0",
+    "ruff>=0.1.0",
+    "mypy>=1.8.0",
+    "pre-commit>=3.6.0",
+]
+all = [
+    "zen-translator[training,wav2lip,cosyvoice,dev]",
+]
+
+[project.scripts]
+zen-translate = "zen_translator.cli:app"
+zen-serve = "zen_translator.server:main"
+
+[project.urls]
+Homepage = "https://zenlm.org"
+Repository = "https://github.com/zenlm/zen-translator"
+Documentation = "https://docs.zenlm.org/translator"
+Issues = "https://github.com/zenlm/zen-translator/issues"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/zen_translator"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "N", "W", "UP"]
+ignore = ["E501"]
+
+[tool.mypy]
+python_version = "3.10"
+strict = true
+ignore_missing_imports = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+asyncio_mode = "auto"

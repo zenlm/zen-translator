@@ -1,0 +1,70 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+.venv/
+venv/
+ENV/
+
+# Distribution / packaging
+build/
+dist/
+*.egg-info/
+
+# Models (large files)
+models/
+*.gguf
+*.safetensors
+*.bin
+*.pth
+*.pt
+
+# Data files
+data/raw/
+data/news_anchors/raw/
+*.wav
+*.mp3
+*.mp4
+*.avi
+*.mov
+
+# Training outputs
+outputs/
+saves/
+checkpoints/
+wandb/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Environment
+.env
+.env.local
+*.env
+
+# Logs
+*.log
+logs/
+
+# Cache
+.cache/
+.ruff_cache/
+.mypy_cache/
+.pytest_cache/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Temp files
+tmp/
+temp/
+*.tmp
