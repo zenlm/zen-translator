@@ -4,7 +4,7 @@
 **Organization**: zenlm
 **Repository**: https://github.com/zenlm/zen-translator
 **Version**: 0.1.0
-**Last Updated**: 2025-11-27
+**Last Updated**: 2025-11-28
 
 ## Project Overview
 
@@ -70,6 +70,10 @@ zen-translator/
 │   ├── streaming/
 │   │   ├── __init__.py
 │   │   └── server.py         # FastAPI + WebSocket server
+│   ├── ui/
+│   │   ├── __init__.py       # UI module exports
+│   │   └── app.py            # Gradio + FastRTC WebRTC UI
+│   ├── server.py             # Standalone server entry point
 │   └── training/
 │       ├── __init__.py
 │       ├── swift_config.py       # ms-swift finetuning configs
@@ -142,7 +146,34 @@ Lip synchronization for video dubbing:
 - Batch processing for efficiency
 - Quality presets: fast, balanced, quality
 
-### 5. TranslationServer (streaming/server.py)
+### 5. Gradio UI (ui/app.py)
+
+Web interface for interactive translation with WebRTC streaming:
+
+```python
+# Launch Gradio UI
+zen-translate ui --port 7860
+
+# Or via Python
+from zen_translator.ui import create_demo
+demo = create_demo()
+demo.launch()
+```
+
+**Modes:**
+- `ui`: File-based Gradio interface (microphone/upload → translate)
+- `webrtc`: Real-time FastRTC WebRTC streaming
+- `api`: REST/WebSocket API server
+
+**Features:**
+- Source/target language selection (24 input, 10 output languages)
+- Voice selection for TTS output
+- Audio input: microphone or file upload
+- Video input: webcam or file upload
+- Real-time translation with voice cloning
+- Lip sync for video output
+
+### 6. TranslationServer (streaming/server.py)
 
 FastAPI server for real-time translation:
 
@@ -265,6 +296,15 @@ zen-translate download all
 
 # Train
 zen-translate train --type anchor --output ./outputs
+
+# Launch UI
+zen-translate ui --port 7860
+
+# Launch with WebRTC
+zen-translate ui --mode webrtc
+
+# Launch API server
+zen-serve --mode api --port 8000
 ```
 
 ## Model Requirements
@@ -305,13 +345,20 @@ For smaller deployments, use 4-bit quantized Qwen3-Omni (~15GB disk).
 - peft>=0.7.0
 - deepspeed>=0.13.0
 
+### UI (optional)
+- gradio>=4.44.0
+- fastrtc>=0.0.20
+- python-dotenv>=1.0.0
+
 ## Key Files
 
 - `src/zen_translator/pipeline.py` - Main orchestration (line 23: TranslationPipeline)
-- `src/zen_translator/translation/qwen3_omni.py` - Qwen3-Omni (line 25: Qwen3OmniTranslator)
+- `src/zen_translator/translation/qwen3_omni.py` - Qwen3-Omni (line 28: Qwen3OmniTranslator)
 - `src/zen_translator/voice_clone/cosyvoice.py` - CosyVoice (line 23: CosyVoiceCloner)
 - `src/zen_translator/lip_sync/wav2lip.py` - Wav2Lip (line 21: Wav2LipSync)
 - `src/zen_translator/streaming/server.py` - FastAPI server (line 92: create_app)
+- `src/zen_translator/ui/app.py` - Gradio UI (line 117: ZenTranslateHandler, line 393: create_demo)
+- `src/zen_translator/server.py` - Server entry point (line 13: main)
 
 ## Notes for AI Assistants
 
