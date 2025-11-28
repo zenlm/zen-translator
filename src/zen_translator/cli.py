@@ -248,6 +248,45 @@ def register_speaker(
 
 
 @app.command()
+def ui(
+    mode: str = typer.Option("ui", "--mode", help="Mode: ui, webrtc, or api"),
+    host: str = typer.Option("0.0.0.0", "--host", help="Host to bind to"),
+    port: int = typer.Option(7860, "--port", help="Port to listen on"),
+):
+    """Launch the Gradio UI for interactive translation."""
+    import os
+
+    os.environ["MODE"] = mode.upper()
+
+    if mode == "ui":
+        from .ui import create_demo
+
+        demo = create_demo()
+        demo.launch(server_name=host, server_port=port)
+    elif mode == "webrtc":
+        try:
+            from .ui.app import create_stream
+
+            stream = create_stream()
+            stream.ui.launch(server_name=host, server_port=port)
+        except (ImportError, RuntimeError) as e:
+            console.print(f"[yellow]WebRTC unavailable: {e}[/yellow]")
+            console.print("Install with: pip install zen-translator[ui]")
+            console.print("Falling back to UI mode...")
+            from .ui import create_demo
+
+            demo = create_demo()
+            demo.launch(server_name=host, server_port=port)
+    else:
+        from .ui import create_app
+
+        import uvicorn
+
+        app = create_app()
+        uvicorn.run(app, host=host, port=port)
+
+
+@app.command()
 def version():
     """Show version information."""
     from . import __version__
