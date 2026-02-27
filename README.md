@@ -3,7 +3,7 @@
 Real-time multimodal translation with voice cloning and lip synchronization.
 
 Built on:
-- **[Qwen3-Omni](https://huggingface.co/Qwen/Qwen3-Omni-30B-A3B-Instruct)** - Real-time speech understanding and translation
+- **[Zen Omni](https://huggingface.co/zenlm/zen-omni)** - Real-time speech understanding and translation (30B MoE)
 - **[CosyVoice 2.0](https://github.com/FunAudioLLM/CosyVoice)** - Ultra-low latency voice cloning (150ms)
 - **[Wav2Lip](https://github.com/Rudrabha/Wav2Lip)** - Accurate lip synchronization
 
@@ -60,7 +60,7 @@ ws.onmessage = (event) => {
 ┌─────────────────────────────────────────────────────────────────┐
 │                      Zen Translator Pipeline                     │
 ├─────────────────┬─────────────────┬─────────────────────────────┤
-│  Audio/Video    │  Qwen3-Omni     │  Translation + Understanding │
+│  Audio/Video    │  Zen Omni       │  Translation + Understanding │
 │  Input          │  (30B MoE)      │  ~500ms                       │
 ├─────────────────┼─────────────────┼─────────────────────────────┤
 │  Translated     │  CosyVoice 2.0  │  Voice Cloning               │
@@ -165,14 +165,14 @@ result = await pipeline.translate_video(
 
 | Model | Parameters | VRAM | Disk |
 |-------|------------|------|------|
-| Qwen3-Omni | 30B (3B active) | 16GB | 60GB |
+| Zen Omni | 30B (3B active) | 16GB | 60GB |
 | CosyVoice 2.0 | 0.5B | 2GB | 1GB |
 | Wav2Lip | ~100M | 2GB | 500MB |
 | **Total** | - | **~20GB** | **~62GB** |
 
 For smaller deployments, use quantized models:
 ```bash
-make download-quantized  # 4-bit Qwen3-Omni (~15GB)
+make download-quantized  # 4-bit Zen Omni (~15GB)
 ```
 
 ## Development
@@ -209,14 +209,13 @@ Apache 2.0
 
 ## Credits
 
-- **Qwen Team** - Qwen3-Omni model
-- **Alibaba FunAudioLLM** - CosyVoice
+- **FunAudioLLM** - CosyVoice voice cloning
 - **Wav2Lip Authors** - Lip synchronization
-- **Hanzo AI / Zen LM** - Integration and finetuning
+- **Hanzo AI / Zen LM** - Zen Omni model, integration, and finetuning
 
 ## Links
 
 - [Zen LM](https://zenlm.org)
-- [Qwen3-Omni](https://huggingface.co/collections/Qwen/qwen3-omni)
+- [Zen Omni](https://huggingface.co/zenlm/zen-omni)
 - [CosyVoice](https://github.com/FunAudioLLM/CosyVoice)
 - [Wav2Lip](https://github.com/Rudrabha/Wav2Lip)
