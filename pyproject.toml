@@ -8,7 +8,7 @@ authors = [
     {name = "Hanzo AI", email = "ai@hanzo.ai"},
     {name = "Zen LM", email = "team@zenlm.org"}
 ]
-requires-python = ">=3.10"
+requires-python = ">=3.14"
 keywords = ["translation", "lip-sync", "voice-cloning", "multimodal", "real-time", "streaming"]
 classifiers = [
     "Development Status :: 3 - Alpha",
