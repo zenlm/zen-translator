@@ -124,7 +124,7 @@ result = await pipeline.translate_video(
 
 ### 2. Qwen3OmniTranslator (translation/qwen3_omni.py)
 
-Handles speech understanding and translation using Qwen3-Omni:
+Handles speech understanding and translation using -Omni:
 - Audio input processing
 - Video multimodal analysis (lip reading, visual context)
 - Streaming translation support
@@ -228,7 +228,7 @@ ZEN_TRANSLATOR_ENABLE_LIP_SYNC=true
 
 ### Identity Finetuning (ZenIdentityConfig)
 
-Finetunes Qwen3-Omni with Zen Translator identity:
+Finetunes -Omni with Zen Translator identity:
 - Professional translation persona
 - Consistent behavior and responses
 - Uses ms-swift for LoRA training
@@ -311,12 +311,12 @@ zen-serve --mode api --port 8000
 
 | Model | Parameters | VRAM | Disk |
 |-------|------------|------|------|
-| Qwen3-Omni | 30B (3B active) | 16GB | 60GB |
+| -Omni | 30B (3B active) | 16GB | 60GB |
 | CosyVoice 2.0 | 0.5B | 2GB | 1GB |
 | Wav2Lip | ~100M | 2GB | 500MB |
 | **Total** | - | **~20GB** | **~62GB** |
 
-For smaller deployments, use 4-bit quantized Qwen3-Omni (~15GB disk).
+For smaller deployments, use 4-bit quantized -Omni (~15GB disk).
 
 ## Dependencies
 
@@ -353,7 +353,7 @@ For smaller deployments, use 4-bit quantized Qwen3-Omni (~15GB disk).
 ## Key Files
 
 - `src/zen_translator/pipeline.py` - Main orchestration (line 23: TranslationPipeline)
-- `src/zen_translator/translation/qwen3_omni.py` - Qwen3-Omni (line 28: Qwen3OmniTranslator)
+- `src/zen_translator/translation/qwen3_omni.py` - -Omni (line 28: Qwen3OmniTranslator)
 - `src/zen_translator/voice_clone/cosyvoice.py` - CosyVoice (line 23: CosyVoiceCloner)
 - `src/zen_translator/lip_sync/wav2lip.py` - Wav2Lip (line 21: Wav2LipSync)
 - `src/zen_translator/streaming/server.py` - FastAPI server (line 92: create_app)
@@ -374,7 +374,7 @@ For smaller deployments, use 4-bit quantized Qwen3-Omni (~15GB disk).
 ## Related Projects
 
 - [zen](https://github.com/zenlm/zen) - Zen AI model family
-- [Qwen3-Omni](https://huggingface.co/Qwen/Qwen3-Omni-30B-A3B-Instruct) - Base translation model
+- [-Omni](https://huggingface.co//-Omni-30B-A3B-Instruct) - Base translation model
 - [CosyVoice](https://github.com/FunAudioLLM/CosyVoice) - Voice cloning
 - [Wav2Lip](https://github.com/Rudrabha/Wav2Lip) - Lip synchronization
 - [ms-swift](https://github.com/modelscope/ms-swift) - Training framework
