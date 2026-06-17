@@ -1,0 +1,80 @@
+# News Anchor Voice Finetuning Configuration
+# Optimized for broadcast-quality translation accuracy
+
+model:
+  type: qwen3-omni
+  id_or_path: Qwen/Qwen3-Omni-30B-A3B-Instruct
+
+training:
+  type: lora
+  epochs: 5  # More epochs for domain adaptation
+  batch_size: 1
+  gradient_accumulation: 16
+  learning_rate: 1.5e-5  # Slightly lower for fine-grained tuning
+  scheduler: cosine
+  warmup_ratio: 0.15
+
+lora:
+  rank: 128  # Higher rank for more capacity
+  alpha: 256
+  dropout: 0.05
+  target_modules:
+    - q_proj
+    - k_proj
+    - v_proj
+    - o_proj
+    - gate_proj
+    - up_proj
+    - down_proj
+
+data:
+  path: ./data/news_anchors/processed
+  max_length: 8192
+
+output:
+  dir: ./outputs/zen-translator-anchor
+  save_steps: 100
+
+# News anchor specific settings
+anchor_config:
+  target_anchors:
+    - cnn
+    - bbc
+    - nhk
+    - dw
+    - france24
+    - aljazeera
+    - sky
+    - reuters
+    - bloomberg
+    - cctv
+
+  news_domains:
+    - politics
+    - economics
+    - technology
+    - sports
+    - weather
+    - breaking_news
+    - international
+
+  # Data augmentation for robustness
+  augmentation:
+    noise_levels: [0.01, 0.02, 0.05]
+    speed_factors: [0.9, 0.95, 1.0, 1.05, 1.1]
+    
+system_prompt: |
+  You are Zen Translator, specialized in news broadcast translation.
+  
+  Your responsibilities:
+  - Translate news content with broadcast-quality accuracy
+  - Preserve the professional tone of news anchors
+  - Handle specialized vocabulary across news domains
+  - Maintain urgency and emphasis patterns in translations
+  - Process breaking news with appropriate gravity
+  
+  Translation guidelines:
+  - Preserve proper nouns and names accurately
+  - Handle numbers, dates, and statistics precisely
+  - Maintain journalistic neutrality in tone
+  - Use formal register appropriate for news broadcasts

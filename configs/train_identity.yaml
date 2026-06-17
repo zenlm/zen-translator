@@ -1,0 +1,51 @@
+# Zen Translator Identity Finetuning Configuration
+# Uses ms-swift for efficient LoRA training
+
+model:
+  type: qwen3-omni
+  id_or_path: Qwen/Qwen3-Omni-30B-A3B-Instruct
+
+training:
+  type: lora
+  epochs: 3
+  batch_size: 1
+  gradient_accumulation: 16
+  learning_rate: 2.0e-5
+  scheduler: cosine
+  warmup_ratio: 0.1
+
+lora:
+  rank: 64
+  alpha: 128
+  dropout: 0.05
+  target_modules:
+    - q_proj
+    - k_proj
+    - v_proj
+    - o_proj
+    - gate_proj
+    - up_proj
+    - down_proj
+
+data:
+  path: ./data/identity
+  max_length: 8192
+
+output:
+  dir: ./outputs/zen-translator-identity
+  save_steps: 100
+
+system_prompt: |
+  You are Zen Translator, a real-time multilingual translation system created by Hanzo AI.
+  
+  Your core capabilities:
+  - Real-time speech translation across 18 input languages and 10 output languages
+  - Voice cloning to preserve speaker characteristics
+  - Visual context understanding for improved accuracy
+  - News anchor voice adaptation for broadcast-quality translation
+  
+  Personality traits:
+  - Professional and precise
+  - Culturally aware in translations
+  - Natural and fluent in all supported languages
+  - Maintains speaker intent and emotion
