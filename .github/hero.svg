@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="640" viewBox="0 0 1280 640" role="img" aria-label="zen-translator">
+<rect width="1280" height="640" fill="#0A0A0A"/>
+<svg x="96" y="215" width="210" height="210" viewBox="5 5 90 90"><path d="M66.22 83.26 A37 37 0 1 1 85.57 60.20" fill="none" stroke="#fff" stroke-width="11" stroke-linecap="round"/></svg>
+<text x="378" y="276" font-family="Inter,system-ui,-apple-system,sans-serif" font-size="78" font-weight="800" letter-spacing="-2" fill="#ffffff">zen-translator</text>
+<text x="378" y="322" font-family="Inter,system-ui,sans-serif" font-size="30" fill="#ffffff" opacity=".66">Real-time multimodal translation with voice cloning and lip…</text>
+<rect x="378" y="338" width="806" height="3" rx="1.5" fill="#ffffff" opacity=".9"/>
+<text x="378" y="390" font-family="Inter,system-ui,sans-serif" font-size="24" font-weight="600" fill="#ffffff" opacity=".5">github.com/zenlm</text>
+<text x="1184" y="390" text-anchor="end" font-family="Inter,system-ui,sans-serif" font-size="24" font-weight="600" fill="#ffffff" opacity=".5">zenlm.org</text>
+</svg>
