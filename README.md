@@ -1,3 +1,5 @@
+<p align="center"><img src=".github/hero.svg" alt="zen-translator" width="880"></p>
+
 # Zen Translator
 
 Real-time multimodal translation with voice cloning and lip synchronization.
